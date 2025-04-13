@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('posts.edit')
-    <h1>Изменить ост</h1>
+    <h1>Изменить Пост</h1>
 
     <form action="{{ route('posts.update', $post) }}" method="POST">
         @csrf

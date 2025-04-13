@@ -29,6 +29,7 @@ Route::name('posts.')
             Route::get('/create', [PostController::class, 'create'])->name('create')->middleware(['auth', 'is.manager']);
             Route::post('/', [PostController::class, 'store'])->name('store')->middleware(['auth', 'is.manager']);
             Route::get('/{post}/edit', [PostController::class, 'edit'])->name('edit')->middleware(['auth', 'is.manager']);
+            Route::put('/{post}', [PostController::class, 'update'])->name('update')->middleware(['auth', 'is.manager']);
             Route::delete('/{post}', [PostController::class, 'destroy'])->name('destroy')->middleware(['auth', 'is.admin']);
             Route::get('/download', [PostController::class, 'download'])->name('download');
         }
