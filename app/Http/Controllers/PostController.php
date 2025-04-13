@@ -47,16 +47,7 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        /*Post::create([
-            'title' => $request->input('title'),
-            'category_id' => $request->input('category_id'),
-            'content' => $request->input('content'),
-        ]);*/
-        $post = new Post();
-        $post->title = $request->input('title');
-        $post->category_id = $request->input('category_id');
-        $post->content = $request->input('content');
-
+        $post = new Post($request->validated());
         $post->save();
 
         return redirect()->route('posts.index');
@@ -79,21 +70,9 @@ class PostController extends Controller
 
     public function update(StorePostRequest $request, Post $post)
     {
-       // $post = Post::find($id);
+        $post->update($request->validated());
 
-        $post->title = $request->input('title');
-        $post->category_id = $request->input('category_id');
-        $post->content = $request->input('content');
-
-        $post->save();
-
-    /*    $post->update([
-            'title' => $request->input('title'),
-            'category_id' => $request->input('category_id'),
-            'content' => $request->input('content'),
-        ]);*/
-
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('posts.show', $post);
     }
 
     public function destroy(Post $post)

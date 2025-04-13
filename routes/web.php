@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryPostController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,12 +35,17 @@ Route::name('posts.')
             Route::get('/download', [PostController::class, 'download'])->name('download');
         }
     );
-Route::middleware(['test.pre', 'test.post'])->name('categories.')
+Route::name('categories.')
     ->prefix('categories')
     ->group(
         function () {
             Route::get('/', [CategoryPostController::class, 'index'])->name('index');
-            Route::get('/{category}', [CategoryPostController::class, 'show'])->name('show')->withoutMiddleware('test.pre');
+            Route::get('/{category}/show', [CategoryPostController::class, 'show'])->name('show');
+            Route::get('/create', [CategoryPostController::class, 'create'])->name('create')->middleware(['auth', 'is.manager']);
+            Route::post('/', [CategoryPostController::class, 'store'])->name('store')->middleware(['auth', 'is.manager']);
+            Route::get('/{category}/edit', [CategoryPostController::class, 'edit'])->name('edit')->middleware(['auth', 'is.manager']);
+            Route::put('/{category}', [CategoryPostController::class, 'update'])->name('update')->middleware(['auth', 'is.manager']);
+            Route::delete('/{category}', [CategoryPostController::class, 'destroy'])->name('destroy')->middleware(['auth', 'is.manager']);
         }
     );
 

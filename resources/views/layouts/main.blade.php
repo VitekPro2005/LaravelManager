@@ -14,5 +14,7 @@
     @yield('categories')
     @yield('posts.create')
     @yield('posts.edit')
+    @yield('categories.create')
+    @yield('categories.edit')
 </body>
 </html>
